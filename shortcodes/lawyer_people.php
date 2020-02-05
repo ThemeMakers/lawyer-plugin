@@ -16,6 +16,7 @@ vc_map(
 					'Style 3'   => 'style3'
 				)
 			),
+
 			array(
 				'type' 		  => 'dropdown',
 				'heading' 	  => 'Pagination',
@@ -27,8 +28,36 @@ vc_map(
 			),
 
 			array(
+				'type'       => 'dropdown',
+				'heading'    => 'Sorting Order',
+				'param_name' => 'order',
+				'value'      => array(
+					'descending' => 'DESC',
+					'ascending'  => 'ASC'
+				)
+			),
+
+			array(
+				'type'       => 'dropdown',
+				'heading'    => 'Sort by parameter',
+				'param_name' => 'order_by',
+				'value'      => array(
+					'No order'                     => 'none',
+					'Order by post id'             => 'ID',
+					'Order by author'              => 'author',
+					'Order by title'               => 'title',
+					'Order by post name'           => 'name',
+					'Order by date'                => 'date',
+					'Order by last modified date'  => 'modified',
+					'Order by post/page parent id' => 'parent',
+					'Random order'                 => 'rand'
+
+				)
+			),
+
+			array(
 				'type' 		  => 'textfield',
-				'heading' 	  => esc_html__( 'Limit', 'js_composer' ),
+				'heading' 	  => esc_html__( 'Post Limit', 'js_composer' ),
 				'param_name'  => 'limit',
 				'description' => esc_html__( 'If pagination is enabled this options works as post per page.', 'js_composer' ),
 			),
@@ -65,21 +94,27 @@ class WPBakeryShortCode_lawyer_people extends WPBakeryShortCode{
 		extract( shortcode_atts( array(
 			'style'      => 'style1',
 			'pagination' => 'disable',
+			'order'      => 'DESC',
+			'order_by'    => 'date',
 			'limit'      => '',
 			'predefined' => '',
 			'el_class'   => '',
-			'css' 	     => ''
+			'css'        => ''
 		), $atts ) );
 
 		$class  = ( ! empty( $el_class ) ) ? $el_class : '';
 		$class .= vc_shortcode_custom_css_class( $css, ' ' );
 
 		$limit = ! empty( $limit ) ? $limit : 4;
+		$order = isset( $order ) ? $order : 'DESC';
+		$order_by = isset( $order_by ) ? $order_by : 'date';
 
 		$args = array(
-			'post_type'      	  => 'people',
+			'post_type'           => 'people',
 			'ignore_sticky_posts' => true,
-			'posts_per_page' 	  => $limit
+			'posts_per_page'      => $limit,
+			'orderby'             => $order_by,
+			'order'               => $order
 		);
 
 		if ( ! empty( $predefined ) ) {
@@ -93,8 +128,7 @@ class WPBakeryShortCode_lawyer_people extends WPBakeryShortCode{
 	        $args['paged'] = $paged;
 		}
 
-		$artcl = new WP_Query( $args ); 
-
+		$artcl = new WP_Query( $args );
 		if ( $artcl->have_posts() ) {
 			ob_start(); 
 			if ( $style == 'style1' ) { ?>
@@ -193,7 +227,7 @@ class WPBakeryShortCode_lawyer_people extends WPBakeryShortCode{
 					<?php
 					while ( $artcl->have_posts() ) {
 						$artcl->the_post();
-						$meta_data = get_post_meta( get_the_ID(), 'people_options', true ); 
+						$meta_data = get_post_meta( get_the_ID(), 'people_options', true );
 						$people_id = get_the_ID(); 
 						$location = get_post_meta( $people_id, 'people-location', true ); 
 						$city = get_post( $location );
