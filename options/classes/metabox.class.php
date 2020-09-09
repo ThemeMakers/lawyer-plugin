@@ -67,7 +67,7 @@ class CSFramework_Metabox extends CSFramework_Abstract{
     $sections   = $callback['args']['sections'];
     $meta_value = get_post_meta( $post->ID, $unique, true );
     $transient  = get_transient( 'cs-metabox-transient' );
-    $cs_errors  = $transient['errors'];
+    $cs_errors  = $transient['errors'] ?? '';
     $has_nav    = ( count( $sections ) >= 2 && $callback['args']['context'] != 'side' ) ? true : false;
     $show_all   = ( ! $has_nav ) ? ' cs-show-all' : '';
     $section_id = ( ! empty( $transient['ids'][$unique] ) ) ? $transient['ids'][$unique] : '';
