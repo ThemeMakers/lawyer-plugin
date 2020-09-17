@@ -238,7 +238,7 @@
             }
 
             var control = context.find(this.controller);
-            if(control.size() === 0 && cfg.log) {
+            if(control.length === 0 && cfg.log) {
                 log("Evaling condition: Could not find controller input " + this.controller);
             }
 
@@ -287,7 +287,7 @@
            * @version 1.0.0
            *
            */
-          if( ( control.attr("type") == "radio" || control.attr("type") == "checkbox" ) && control.size() > 1 ) {
+          if( ( control.attr("type") == "radio" || control.attr("type") == "checkbox" ) && control.length > 1 ) {
             return control.filter(":checked").val();
           }
 
@@ -371,7 +371,7 @@
             // we are controlling in this context
             var controls = $.map(this.controls, function(elem, idx) {
                 var control = context.find(elem);
-                if(cfg.log && control.size() === 0) {
+                if(cfg.log && control.length === 0) {
                     log("Could not find element:" + elem);
                 }
                 return control;
@@ -383,7 +383,7 @@
 
 
                     // Some friendly debug info
-                    if(cfg.log && $(this).size() === 0) {
+                    if(cfg.log && $(this).length === 0) {
                         log("Control selection is empty when showing");
                         log(this);
                     }
@@ -401,7 +401,7 @@
                 $(controls).each(function() {
 
                     // Some friendly debug info
-                    if(cfg.log && $(this).size() === 0) {
+                    if(cfg.log && $(this).length === 0) {
                         log("Control selection is empty when hiding:");
                         log(this);
                     }
@@ -504,7 +504,7 @@
 
             $(rules).each(function() {
 
-                if(context.find(this.controller).size() === 0) {
+                if(context.find(this.controller).length === 0) {
                     throw new Error("Rule's controller does not exist:" + this.controller);
                 }
 
