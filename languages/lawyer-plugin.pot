@@ -3,21 +3,21 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Lawyer Theme Plugin\n"
-"POT-Creation-Date: 2018-12-06 21:01+0100\n"
+"POT-Creation-Date: 2021-02-02 23:42+0100\n"
 "PO-Revision-Date: 2018-12-06 21:01+0100\n"
 "Last-Translator: Alex TM <support@webtemplatemasters.com>\n"
 "Language-Team: Alex TM <support@webtemplatemasters.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: lawyer-plugin.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -122,6 +122,10 @@ msgstr ""
 
 #: options/classes/shortcode.class.php:108
 msgid "Insert Shortcode"
+msgstr ""
+
+#: options/config/framework.config.php:134
+msgid "Allowed HTML tags: div, span, a"
 msgstr ""
 
 #: options/fields/background/background.php:34
@@ -312,7 +316,7 @@ msgstr ""
 #: shortcodes/lawyer_gallery.php:76 shortcodes/lawyer_google_maps.php:113
 #: shortcodes/lawyer_icon_text.php:56 shortcodes/lawyer_image.php:46
 #: shortcodes/lawyer_list.php:36 shortcodes/lawyer_locations.php:46
-#: shortcodes/lawyer_people.php:45 shortcodes/lawyer_practice_area.php:81
+#: shortcodes/lawyer_people.php:74 shortcodes/lawyer_practice_area.php:81
 #: shortcodes/lawyer_quote.php:42 shortcodes/lawyer_recent_posts.php:88
 #: shortcodes/lawyer_separator.php:21 shortcodes/lawyer_sidebar.php:17
 #: shortcodes/lawyer_social.php:29 shortcodes/lawyer_tabs.php:15
@@ -329,7 +333,7 @@ msgstr ""
 #: shortcodes/lawyer_gallery.php:78 shortcodes/lawyer_google_maps.php:115
 #: shortcodes/lawyer_icon_text.php:58 shortcodes/lawyer_image.php:48
 #: shortcodes/lawyer_list.php:38 shortcodes/lawyer_locations.php:48
-#: shortcodes/lawyer_people.php:47 shortcodes/lawyer_practice_area.php:83
+#: shortcodes/lawyer_people.php:76 shortcodes/lawyer_practice_area.php:83
 #: shortcodes/lawyer_quote.php:44 shortcodes/lawyer_recent_posts.php:90
 #: shortcodes/lawyer_separator.php:23 shortcodes/lawyer_sidebar.php:19
 #: shortcodes/lawyer_social.php:31 shortcodes/lawyer_tabs.php:17
@@ -348,7 +352,7 @@ msgstr ""
 #: shortcodes/lawyer_gallery.php:84 shortcodes/lawyer_google_maps.php:121
 #: shortcodes/lawyer_icon_text.php:64 shortcodes/lawyer_image.php:54
 #: shortcodes/lawyer_list.php:44 shortcodes/lawyer_locations.php:54
-#: shortcodes/lawyer_people.php:53 shortcodes/lawyer_practice_area.php:89
+#: shortcodes/lawyer_people.php:82 shortcodes/lawyer_practice_area.php:89
 #: shortcodes/lawyer_quote.php:51 shortcodes/lawyer_recent_posts.php:96
 #: shortcodes/lawyer_separator.php:29 shortcodes/lawyer_sidebar.php:25
 #: shortcodes/lawyer_social.php:37 shortcodes/lawyer_tabs.php:23
@@ -365,7 +369,7 @@ msgstr ""
 #: shortcodes/lawyer_gallery.php:86 shortcodes/lawyer_google_maps.php:123
 #: shortcodes/lawyer_icon_text.php:66 shortcodes/lawyer_image.php:56
 #: shortcodes/lawyer_list.php:46 shortcodes/lawyer_locations.php:56
-#: shortcodes/lawyer_people.php:55 shortcodes/lawyer_practice_area.php:91
+#: shortcodes/lawyer_people.php:84 shortcodes/lawyer_practice_area.php:91
 #: shortcodes/lawyer_quote.php:53 shortcodes/lawyer_recent_posts.php:98
 #: shortcodes/lawyer_separator.php:31 shortcodes/lawyer_sidebar.php:27
 #: shortcodes/lawyer_social.php:39 shortcodes/lawyer_tabs.php:25
@@ -680,25 +684,29 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: shortcodes/lawyer_people.php:31 shortcodes/lawyer_practice_area.php:37
-msgid "Limit"
+#: shortcodes/lawyer_people.php:60
+msgid "Post Limit"
 msgstr ""
 
-#: shortcodes/lawyer_people.php:33
+#: shortcodes/lawyer_people.php:62
 msgid "If pagination is enabled this options works as post per page."
 msgstr ""
 
-#: shortcodes/lawyer_people.php:38 shortcodes/lawyer_practice_area.php:22
+#: shortcodes/lawyer_people.php:67 shortcodes/lawyer_practice_area.php:22
 msgid "Predefined ids"
 msgstr ""
 
-#: shortcodes/lawyer_people.php:137 shortcodes/lawyer_people.php:180
-#: shortcodes/lawyer_people.php:217
+#: shortcodes/lawyer_people.php:171 shortcodes/lawyer_people.php:214
+#: shortcodes/lawyer_people.php:251
 msgid "View profile"
 msgstr ""
 
 #: shortcodes/lawyer_practice_area.php:24
 msgid "Practice ids, comma separated(ex. 12, 23, 152)."
+msgstr ""
+
+#: shortcodes/lawyer_practice_area.php:37
+msgid "Limit"
 msgstr ""
 
 #: shortcodes/lawyer_practice_area.php:44
