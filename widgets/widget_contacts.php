@@ -35,7 +35,7 @@ if( ! class_exists( 'Lawyer_Contacts' ) ) {
 					$html .= ! empty( $instance['city'] ) 	 ? esc_html__( 'City:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['city'] ) . ', ' : '';
 					$html .= ! empty( $instance['region'] )  ? esc_html__( 'Region:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['region'] ) . ', ' : '';
 					$html .= ! empty( $instance['zip'] ) 	 ? esc_html__( 'Zip code:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['zip'] ) . ', ' : '';
-					$html .= ! empty( $instance['country'] ) ? esc_html__( 'Country:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['country'] ) . '' : '';
+					$html .= ! empty( $instance['country'] ) ? esc_html__( 'Country:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['country'] ) : '';
 				$html .= '</p>';
 				$html .= ! empty( $instance['phone'] ) ? '<p class="widget-address__info icon-phone-3">' . esc_html__( 'Phone:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['phone'] ) . '</p>' : '';
 				$html .= ! empty( $instance['fax'] ) ? '<p class="widget-address__info icon-fax">' . esc_html__( 'Fax:', 'lawyer-plugin' ) . ' ' . esc_html( $instance['phone'] ) . '</p>' : '';
@@ -47,7 +47,7 @@ if( ! class_exists( 'Lawyer_Contacts' ) ) {
 					$html .= ! empty( $instance['city'] ) 	 ? esc_html( $instance['city'] ) . ', ' : '';
 					$html .= ! empty( $instance['region'] )  ? esc_html( $instance['region'] ) . ', ' : '';
 					$html .= ! empty( $instance['zip'] ) 	 ? esc_html( $instance['zip'] ) . ', ' : '';
-					$html .= ! empty( $instance['country'] ) ? esc_html( $instance['country'] ) . ', ' : '';
+					$html .= ! empty( $instance['country'] ) ? esc_html( $instance['country'] ) : '';
 				$html .= '</p>';
 				$html .= ! empty( $instance['phone'] ) ? '<p class="widget-address__info icon-phone-3">' . esc_html( $instance['phone'] ) . '</p>' : '';
 				$html .= ! empty( $instance['fax'] ) ? '<p class="widget-address__info icon-fax">' . esc_html( $instance['fax'] ) . '</p>' : '';
