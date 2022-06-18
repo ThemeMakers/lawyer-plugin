@@ -28,7 +28,7 @@ if( ! function_exists( 'get_term_meta' ) ) {
  *
  */
 if( ! function_exists( 'add_term_meta' ) ) {
-  function add_term_meta( $term_id, $meta_key = '', $meta_value, $unique = false ) {
+  function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
 
     return update_term_meta( $term_id, $meta_key, $meta_value, $unique );
 

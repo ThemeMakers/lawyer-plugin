@@ -1,5 +1,8 @@
 <?php
 
+require_once EF_ROOT . '/scssphp/scss.inc.php';
+use ScssPhp\ScssPhp\Compiler;
+
 function lawyer_get_font_family( $option, $default ) {
 	if( lawyer_get_options( $option ) ) {
 		$font = lawyer_get_options( $option );
@@ -159,12 +162,11 @@ function lawyer_update_settings() {
 	return $settings;
 }
 
-
 function lawyer_rebuild_styles() {
 
 	if ( function_exists( 'lawyer_get_options' ) ) {
 
-		require_once 'scssphp/scss.inc.php';
+		// require_once 'scssphp/scss.inc.php';
 
 		// Update settings file
 		$settings_file = LAWYER_T_PATH . '/assets/scss/_settings.scss';
@@ -174,13 +176,13 @@ function lawyer_rebuild_styles() {
 			file_put_contents( $settings_file, $new_settings_content );
 		}
 
-		$scss = new Leafo\ScssPhp\Compiler();
+		$scss = new Compiler();
 		$scss->setImportPaths( LAWYER_T_PATH . '/assets/scss/' );
-		$scss->setFormatter('Leafo\ScssPhp\Formatter\Compressed');
+		$scss->setOutputStyle('compressed');
 
 		$content  = file_get_contents( LAWYER_T_PATH . '/assets/scss/main.scss' );
 		
-		$compiled = $scss->compile( $content );
+		$compiled = $scss->compileString( $content )->getCss();
 
 		$file = fopen( LAWYER_T_PATH . '/assets/css/main.css', 'w' );
 		if ( $file ) {
