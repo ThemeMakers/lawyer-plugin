@@ -551,7 +551,7 @@ $options[]      = array(
 					'id'      => 'h3_font_size',
 					'type'    => 'number',
 					'title'   => 'Font size',
-					'default' => '24e'
+					'default' => '24'
 				),
 				array(
 					'id'      	 => 'h3_color',
