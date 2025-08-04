@@ -4,7 +4,7 @@ Plugin Name: Lawyer Theme Plugin
 Plugin URI: https://themeforest.net/user/ThemeMakers
 Author: ThemeMakers
 Author URI: https://themeforest.net/user/ThemeMakers
-Version: 1.1.2
+Version: 1.1.3
 Description: Includes Portfolio Custom Post Types and Visual Composer Shortcodes
 Text Domain: lawyer-plugin
 */
