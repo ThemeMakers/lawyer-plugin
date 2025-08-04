@@ -1,4 +1,10 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+<?php
+
+declare(strict_types=1);
+
+if (! defined('ABSPATH')) {
+  die;
+} // Cannot access pages directly.
 /**
  *
  * Abstract Class
@@ -8,16 +14,18 @@
  * @version 1.0.0
  *
  */
-abstract class CSFramework_Abstract {
+abstract class CSFramework_Abstract
+{
 
   public function __construct() {}
 
-  public function addAction( $hook, $function_to_add, $priority = 30, $accepted_args = 1 ) {
-    add_action( $hook, array( &$this, $function_to_add), $priority, $accepted_args );
+  public function addAction(string $hook, string $function_to_add, int $priority = 30, int $accepted_args = 1): void
+  {
+    add_action($hook, [$this, $function_to_add], $priority, $accepted_args);
   }
 
-  public function addFilter( $tag, $function_to_add, $priority = 30, $accepted_args = 1 ) {
-    add_action( $tag, array( &$this, $function_to_add), $priority, $accepted_args );
+  public function addFilter(string $tag, string $function_to_add, int $priority = 30, int $accepted_args = 1): void
+  {
+    add_filter($tag, [$this, $function_to_add], $priority, $accepted_args);
   }
-
 }

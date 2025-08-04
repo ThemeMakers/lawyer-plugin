@@ -1,4 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access pages directly.
+<?php if (! defined('ABSPATH')) {
+  die;
+} // Cannot access pages directly.
 /**
  *
  * Framework constants
@@ -7,9 +9,9 @@
  * @version 1.0.0
  *
  */
-defined( 'CS_VERSION' )    or  define( 'CS_VERSION',    '1.0.1' );
-defined( 'CS_OPTION' )     or  define( 'CS_OPTION',     '_cs_options' );
-defined( 'CS_CUSTOMIZE' )  or  define( 'CS_CUSTOMIZE',  '_cs_customize_options' );
+defined('CS_VERSION')    or  define('CS_VERSION',    '1.0.1');
+defined('CS_OPTION')     or  define('CS_OPTION',     '_cs_options');
+defined('CS_CUSTOMIZE')  or  define('CS_CUSTOMIZE',  '_cs_customize_options');
 
 /**
  *
@@ -19,25 +21,25 @@ defined( 'CS_CUSTOMIZE' )  or  define( 'CS_CUSTOMIZE',  '_cs_customize_options' 
  * @version 1.0.0
  *
  */
-if( ! function_exists( 'cs_get_path_locate' ) ) {
-  function cs_get_path_locate() {
+if (! function_exists('cs_get_path_locate')) {
+  function cs_get_path_locate()
+  {
 
-    $dirname        = wp_normalize_path( dirname( __FILE__ ) );
-    $plugin_dir     = wp_normalize_path( WP_PLUGIN_DIR );
-    $located_plugin = ( preg_match( '#'. sanitize_file_name( $plugin_dir ) .'#', sanitize_file_name( $dirname ) ) ) ? true : false;
-    $directory      = ( $located_plugin ) ? $plugin_dir : get_template_directory();
-    $directory      = str_replace( '//', '/', $directory );
-    $directory_uri  = ( $located_plugin ) ? WP_PLUGIN_URL : get_template_directory_uri();
-    $basename       = str_replace( wp_normalize_path( $directory ), '', $dirname );
+    $dirname        = wp_normalize_path(dirname(__FILE__));
+    $plugin_dir     = wp_normalize_path(WP_PLUGIN_DIR);
+    $located_plugin = (preg_match('#' . sanitize_file_name($plugin_dir) . '#', sanitize_file_name($dirname))) ? true : false;
+    $directory      = ($located_plugin) ? $plugin_dir : get_template_directory();
+    $directory      = str_replace('//', '/', $directory);
+    $directory_uri  = ($located_plugin) ? WP_PLUGIN_URL : get_template_directory_uri();
+    $basename       = str_replace(wp_normalize_path($directory), '', $dirname);
     $dir            = $directory . $basename;
     $uri            = $directory_uri . $basename;
 
-    return apply_filters( 'cs_get_path_locate', array(
-      'basename' => wp_normalize_path( $basename ),
-      'dir'      => wp_normalize_path( $dir ),
+    return apply_filters('cs_get_path_locate', array(
+      'basename' => wp_normalize_path($basename),
+      'dir'      => wp_normalize_path($dir),
       'uri'      => $uri
-    ) );
-
+    ));
   }
 }
 
@@ -52,9 +54,9 @@ if( ! function_exists( 'cs_get_path_locate' ) ) {
  */
 $get_path = cs_get_path_locate();
 
-defined( 'CS_BASENAME' )  or  define( 'CS_BASENAME',  $get_path['basename'] );
-defined( 'CS_DIR' )       or  define( 'CS_DIR',       $get_path['dir'] );
-defined( 'CS_URI' )       or  define( 'CS_URI',       $get_path['uri'] );
+defined('CS_BASENAME')  or  define('CS_BASENAME',  $get_path['basename']);
+defined('CS_DIR')       or  define('CS_DIR',       $get_path['dir']);
+defined('CS_URI')       or  define('CS_URI',       $get_path['uri']);
 
 /**
  *
@@ -64,16 +66,17 @@ defined( 'CS_URI' )       or  define( 'CS_URI',       $get_path['uri'] );
  * @version 1.0.0
  *
  */
-if( ! function_exists( 'cs_locate_template' ) ) {
-  function cs_locate_template( $template_name ) {
+if (! function_exists('cs_locate_template')) {
+  function cs_locate_template($template_name)
+  {
 
     $located      = '';
-    $override     = apply_filters( 'cs_framework_override', 'cs-framework-override' );
-    $dir_plugin   = wp_normalize_path( WP_PLUGIN_DIR );
+    $override     = apply_filters('cs_framework_override', 'cs-framework-override');
+    $dir_plugin   = wp_normalize_path(WP_PLUGIN_DIR);
     $dir_theme    = get_template_directory();
     $dir_child    = get_stylesheet_directory();
-    $dir_override = '/'. $override .'/'. $template_name;
-    $dir_template = CS_BASENAME .'/'. $template_name;
+    $dir_override = '/' . $override . '/' . $template_name;
+    $dir_template = CS_BASENAME . '/' . $template_name;
 
     // child theme override
     $child_force_overide    = $dir_child . $dir_override;
@@ -87,39 +90,33 @@ if( ! function_exists( 'cs_locate_template' ) ) {
     $plugin_force_override  = $dir_plugin . $dir_override;
     $plugin_normal_override = $dir_plugin . $dir_template;
 
-    if ( file_exists( $child_force_overide ) ) {
+    if (file_exists($child_force_overide)) {
 
       $located = $child_force_overide;
-
-    } else if ( file_exists( $child_normal_override ) ) {
+    } else if (file_exists($child_normal_override)) {
 
       $located = $child_normal_override;
-
-    } else if ( file_exists( $theme_force_override ) ) {
+    } else if (file_exists($theme_force_override)) {
 
       $located = $theme_force_override;
-
-    } else if ( file_exists( $theme_normal_override ) ) {
+    } else if (file_exists($theme_normal_override)) {
 
       $located = $theme_normal_override;
-
-    } else if ( file_exists( $plugin_force_override ) ) {
+    } else if (file_exists($plugin_force_override)) {
 
       $located =  $plugin_force_override;
-
-    } else if ( file_exists( $plugin_normal_override ) ) {
+    } else if (file_exists($plugin_normal_override)) {
 
       $located =  $plugin_normal_override;
     }
 
-    $located = apply_filters( 'cs_locate_template', $located, $template_name );
+    $located = apply_filters('cs_locate_template', $located, $template_name);
 
-    if ( ! empty( $located ) ) {
-      load_template( $located, true );
+    if (! empty($located)) {
+      load_template($located, true);
     }
 
     return $located;
-
   }
 }
 
@@ -131,17 +128,17 @@ if( ! function_exists( 'cs_locate_template' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_option' ) ) {
-  function cs_get_option( $option_name = '', $default = '' ) {
+if (! function_exists('cs_get_option')) {
+  function cs_get_option($option_name = '', $default = '')
+  {
 
-    $options = apply_filters( 'cs_get_option', get_option( CS_OPTION ), $option_name, $default );
+    $options = apply_filters('cs_get_option', get_option(CS_OPTION) ?: array(), $option_name, $default);
 
-    if( ! empty( $option_name ) && ! empty( $options[$option_name] ) ) {
+    if (! empty($option_name) && isset($options[$option_name])) {
       return $options[$option_name];
     } else {
-      return ( ! empty( $default ) ) ? $default : null;
+      return (! empty($default)) ? $default : null;
     }
-
   }
 }
 
@@ -153,16 +150,16 @@ if ( ! function_exists( 'cs_get_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_set_option' ) ) {
-  function cs_set_option( $option_name = '', $new_value = '' ) {
+if (! function_exists('cs_set_option')) {
+  function cs_set_option($option_name = '', $new_value = '')
+  {
 
-    $options = apply_filters( 'cs_set_option', get_option( CS_OPTION ), $option_name, $new_value );
+    $options = apply_filters('cs_set_option', get_option(CS_OPTION) ?: array(), $option_name, $new_value);
 
-    if( ! empty( $option_name ) ) {
+    if (! empty($option_name)) {
       $options[$option_name] = $new_value;
-      update_option( CS_OPTION, $options );
+      update_option(CS_OPTION, $options);
     }
-
   }
 }
 
@@ -174,9 +171,10 @@ if ( ! function_exists( 'cs_set_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_all_option' ) ) {
-  function cs_get_all_option() {
-    return get_option( CS_OPTION );
+if (! function_exists('cs_get_all_option')) {
+  function cs_get_all_option()
+  {
+    return get_option(CS_OPTION) ?: array();
   }
 }
 
@@ -188,22 +186,22 @@ if ( ! function_exists( 'cs_get_all_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_multilang_option' ) ) {
-  function cs_get_multilang_option( $option_name = '', $default = '' ) {
+if (! function_exists('cs_get_multilang_option')) {
+  function cs_get_multilang_option($option_name = '', $default = '')
+  {
 
-    $value     = cs_get_option( $option_name, $default );
+    $value     = cs_get_option($option_name, $default);
     $languages = cs_language_defaults();
     $default   = $languages['default'];
     $current   = $languages['current'];
 
-    if ( is_array( $value ) && is_array( $languages ) && isset( $value[$current] ) ) {
+    if (is_array($value) && is_array($languages) && isset($value[$current])) {
       return  $value[$current];
-    } else if ( $default != $current ) {
+    } else if ($default != $current) {
       return  '';
     }
 
     return $value;
-
   }
 }
 
@@ -215,21 +213,21 @@ if ( ! function_exists( 'cs_get_multilang_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_multilang_value' ) ) {
-  function cs_get_multilang_value( $value = '', $default = '' ) {
+if (! function_exists('cs_get_multilang_value')) {
+  function cs_get_multilang_value($value = '', $default = '')
+  {
 
     $languages = cs_language_defaults();
     $default   = $languages['default'];
     $current   = $languages['current'];
 
-    if ( is_array( $value ) && is_array( $languages ) && isset( $value[$current] ) ) {
+    if (is_array($value) && is_array($languages) && isset($value[$current])) {
       return  $value[$current];
-    } else if ( $default != $current ) {
+    } else if ($default != $current) {
       return  '';
     }
 
     return $value;
-
   }
 }
 
@@ -241,17 +239,17 @@ if ( ! function_exists( 'cs_get_multilang_value' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_customize_option' ) ) {
-  function cs_get_customize_option( $option_name = '', $default = '' ) {
+if (! function_exists('cs_get_customize_option')) {
+  function cs_get_customize_option($option_name = '', $default = '')
+  {
 
-    $options = apply_filters( 'cs_get_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $default );
+    $options = apply_filters('cs_get_customize_option', get_option(CS_CUSTOMIZE) ?: array(), $option_name, $default);
 
-    if( ! empty( $option_name ) && ! empty( $options[$option_name] ) ) {
+    if (! empty($option_name) && isset($options[$option_name])) {
       return $options[$option_name];
     } else {
-      return ( ! empty( $default ) ) ? $default : null;
+      return (! empty($default)) ? $default : null;
     }
-
   }
 }
 
@@ -263,16 +261,16 @@ if ( ! function_exists( 'cs_get_customize_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_set_customize_option' ) ) {
-  function cs_set_customize_option( $option_name = '', $new_value = '' ) {
+if (! function_exists('cs_set_customize_option')) {
+  function cs_set_customize_option($option_name = '', $new_value = '')
+  {
 
-    $options = apply_filters( 'cs_set_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $new_value );
+    $options = apply_filters('cs_set_customize_option', get_option(CS_CUSTOMIZE) ?: array(), $option_name, $new_value);
 
-    if( ! empty( $option_name ) ) {
+    if (! empty($option_name)) {
       $options[$option_name] = $new_value;
-      update_option( CS_CUSTOMIZE, $options );
+      update_option(CS_CUSTOMIZE, $options);
     }
-
   }
 }
 
@@ -284,9 +282,10 @@ if ( ! function_exists( 'cs_set_customize_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_all_customize_option' ) ) {
-  function cs_get_all_customize_option() {
-    return get_option( CS_CUSTOMIZE );
+if (! function_exists('cs_get_all_customize_option')) {
+  function cs_get_all_customize_option()
+  {
+    return get_option(CS_CUSTOMIZE) ?: array();
   }
 }
 
@@ -298,9 +297,14 @@ if ( ! function_exists( 'cs_get_all_customize_option' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_is_wpml_activated' ) ) {
-  function cs_is_wpml_activated() {
-    if ( class_exists( 'SitePress' ) ) { return true; } else { return false; }
+if (! function_exists('cs_is_wpml_activated')) {
+  function cs_is_wpml_activated()
+  {
+    if (class_exists('SitePress')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -312,9 +316,14 @@ if ( ! function_exists( 'cs_is_wpml_activated' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_is_qtranslate_activated' ) ) {
-  function cs_is_qtranslate_activated() {
-    if ( function_exists( 'qtrans_getSortedLanguages' ) ) { return true; } else { return false; }
+if (! function_exists('cs_is_qtranslate_activated')) {
+  function cs_is_qtranslate_activated()
+  {
+    if (function_exists('qtrans_getSortedLanguages')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -326,9 +335,14 @@ if ( ! function_exists( 'cs_is_qtranslate_activated' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_is_polylang_activated' ) ) {
-  function cs_is_polylang_activated() {
-    if ( class_exists( 'Polylang' ) ) { return true; } else { return false; }
+if (! function_exists('cs_is_polylang_activated')) {
+  function cs_is_polylang_activated()
+  {
+    if (class_exists('Polylang')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -340,52 +354,54 @@ if ( ! function_exists( 'cs_is_polylang_activated' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_language_defaults' ) ) {
-  function cs_language_defaults() {
+if (! function_exists('cs_language_defaults')) {
+  function cs_language_defaults()
+  {
 
     $multilang = array();
 
-    if( cs_is_wpml_activated() || cs_is_qtranslate_activated() || cs_is_polylang_activated() ) {
+    if (cs_is_wpml_activated() || cs_is_qtranslate_activated() || cs_is_polylang_activated()) {
 
-      if( cs_is_wpml_activated() ) {
+      if (cs_is_wpml_activated()) {
 
         global $sitepress;
         $multilang['default']   = $sitepress->get_default_language();
         $multilang['current']   = $sitepress->get_current_language();
         $multilang['languages'] = $sitepress->get_active_languages();
-
-      } else if( cs_is_polylang_activated() ) {
+      } else if (cs_is_polylang_activated()) {
 
         global $polylang;
         $current    = pll_current_language();
         $default    = pll_default_language();
-        $current    = ( empty( $current ) ) ? $default : $current;
-        $poly_langs = $polylang->model->get_languages_list();
+        $current    = (empty($current)) ? $default : $current;
         $languages  = array();
-
-        foreach ( $poly_langs as $p_lang ) {
-          $languages[$p_lang->slug] = $p_lang->slug;
+        // Suppress errors by checking property existence before access
+        if (isset($polylang->model) && method_exists($polylang->model, 'get_languages_list')) {
+          $poly_langs = $polylang->model->get_languages_list();
+          if (is_array($poly_langs)) {
+            foreach ($poly_langs as $p_lang) {
+              if (isset($p_lang->slug)) {
+                $languages[$p_lang->slug] = $p_lang->slug;
+              }
+            }
+          }
         }
 
         $multilang['default']   = $default;
         $multilang['current']   = $current;
         $multilang['languages'] = $languages;
-
-      } else if( cs_is_qtranslate_activated() ) {
+      } else if (cs_is_qtranslate_activated()) {
 
         global $q_config;
         $multilang['default']   = $q_config['default_language'];
         $multilang['current']   = $q_config['language'];
-        $multilang['languages'] = array_flip( qtrans_getSortedLanguages() );
-
+        $multilang['languages'] = array_flip(qtrans_getSortedLanguages());
       }
-
     }
 
-    $multilang = apply_filters( 'cs_language_defaults', $multilang );
+    $multilang = apply_filters('cs_language_defaults', $multilang);
 
-    return ( ! empty( $multilang ) ) ? $multilang : false;
-
+    return (! empty($multilang)) ? $multilang : false;
   }
 }
 
@@ -397,49 +413,47 @@ if ( ! function_exists( 'cs_language_defaults' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'cs_get_locale' ) ) {
-  function cs_get_locale() {
+if (! function_exists('cs_get_locale')) {
+  function cs_get_locale()
+  {
 
     global $locale, $wp_local_package;
 
-    if ( isset( $locale ) ) {
-      return apply_filters( 'locale', $locale );
+    if (isset($locale)) {
+      return apply_filters('locale', $locale);
     }
 
-    if ( isset( $wp_local_package ) ) {
+    if (isset($wp_local_package)) {
       $locale = $wp_local_package;
     }
 
-    if ( defined( 'WPLANG' ) ) {
+    if (defined('WPLANG')) {
       $locale = WPLANG;
     }
 
-    if ( is_multisite() ) {
+    if (is_multisite()) {
 
-      if ( defined( 'WP_INSTALLING' ) || ( false === $ms_locale = get_option( 'WPLANG' ) ) ) {
-        $ms_locale = get_site_option( 'WPLANG' );
+      if (defined('WP_INSTALLING') || (false === $ms_locale = get_option('WPLANG'))) {
+        $ms_locale = get_site_option('WPLANG');
       }
 
-      if ( $ms_locale !== false ) {
+      if ($ms_locale !== false) {
         $locale = $ms_locale;
       }
-
     } else {
 
-      $db_locale = get_option( 'WPLANG' );
+      $db_locale = get_option('WPLANG');
 
-      if ( $db_locale !== false ) {
+      if ($db_locale !== false) {
         $locale = $db_locale;
       }
-
     }
 
-    if ( empty( $locale ) ) {
+    if (empty($locale)) {
       $locale = 'en_US';
     }
 
-    return apply_filters( 'locale', $locale );
-
+    return apply_filters('locale', $locale);
   }
 }
 
@@ -451,4 +465,4 @@ if ( ! function_exists( 'cs_get_locale' ) ) {
  * @version 1.0.0
  *
  */
-load_textdomain( 'cs-framework', CS_DIR .'/languages/'. cs_get_locale() .'.mo' );
+load_textdomain('cs-framework', CS_DIR . '/languages/' . cs_get_locale() . '.mo');
