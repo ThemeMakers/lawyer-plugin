@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-use WP_Post;
-
 if (! defined('ABSPATH')) {
   die;
 } // Cannot access pages directly.
